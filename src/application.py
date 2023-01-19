@@ -12,12 +12,17 @@ application.config['CORS_HEADERS'] = 'Content-Type'
 # APLICACIÓN SIMPLE
 @application.route("/")
 def hello_world():
+    print(request)
     return "<h1>Hello world</h1>"
-    @application.route("/")
 
 @application.route("/<username>")
 def return_username(username):
     return username
+
+@application.post("/")
+def hello_world_post():
+    print("Hola desde post")
+    return "hola"
 
 # APLICACIÓN DE CALCULADORA
 @application.route("/calculadora/", methods=['GET'])
@@ -31,5 +36,17 @@ def calcular():
     }
     return jsonify(diccionario)
 
+# call env/Scripts/activate
 # flask --app application.py --debug run
 
+
+# GET
+
+
+# POST
+
+
+# PUT
+
+
+# DELETE
