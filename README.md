@@ -1,11 +1,6 @@
-# FootballAPI - LaLiga Santander
+# FootballAPI
 
 API escrita en Python (para el lado del servidor), con ejemplos en JavaScript.
-
-
-<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/LaLiga.svg/640px-LaLiga.svg.png"
-     alt="Markdown Monster icon"
-     style="width:300px;" />
 
 
 
