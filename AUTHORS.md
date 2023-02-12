@@ -1,4 +1,0 @@
-Maintainer
-========
-
-- Juan Gómez

@@ -1,0 +1,100 @@
+body {
+    font: 16px "Segoe UI";
+    margin: 30px;
+    width: 70%;
+    margin: 0 auto;
+}
+
+p {
+    text-align: justify;
+}
+
+h1 {
+    text-align: center;
+}
+
+hr {
+    margin: 30px 0 30px 0;
+    border: 0;
+    border-top: 1px solid rgba(0,0,0,.1);
+}
+
+table, tr, td, th {
+    border-collapse: collapse;
+    border: 1px solid #000000;
+}
+
+td, th {
+    padding: 5px 10px 5px 10px;
+    text-align: start;
+}
+
+
+.codigo-direccion {
+    background-color: #d9d9d9;
+    padding: 6px;
+    border-radius: 5px;
+    font-size: 13px;
+}
+
+a {
+    text-decoration: none;
+}
+
+table a, ul a, ol a {
+    color: initial;
+}
+
+.codigoJSON {
+    background-color: #f8f8ff;
+    border: 1px solid #c0c0c0;
+    padding: 15px;
+    margin: 20px;
+    border-radius: 4px;
+    font-size: 16px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+input, button {
+    background-color: transparent;
+    color: #FFF;
+    border: 2px solid white;
+    padding: 10px;
+    outline: none;
+    font: 16px "Segoe UI";
+    border-radius: 4px;
+}
+
+button {
+    cursor: pointer;
+}
+
+button:hover:enabled {
+    background-color: white;
+    color: black;
+}
+
+button:disabled, input:disabled {
+    border-color: #595959;
+    color: #595959;
+    cursor: default;
+}
+
+@media (prefers-color-scheme: light) {
+    body {background-color:#FFFFFF;color:#2d2d2d;}
+    th {background-color:#c8c8c8;}
+    hr {border-top: 1px solid rgba(0,0,0,.1);}
+}
+
+@media (prefers-color-scheme: dark) {
+    body {background-color:#2d2d2d;color:#FFFFFF;}
+    table, tr, td, th {border: 1px solid #FFFFFF;}
+    th {background-color: #6e6e6e;color:#FFFFFF;}
+    hr {border-top: 1px solid rgba(255, 255, 255, .5);}
+    .codigoJSON {background-color:#1d1b1b;border:none;}
+    .json-key, .json-string {color:#b5bd68 !important;}
+    .codigo-direccion {color:#FFFFFF;background-color: #404245;}
+    table a {color:#FFFFFF !important;}
+    pre a, code a {color: #FFFFFF !important;}
+}

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>HashMD5 - Home</title>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" type= "text/css" href="{{ url_for('static',filename='QuickAPI.css') }}">
+        <script src="{{ url_for('static',filename='QuickAPI.js') }}"></script>
+    </head>
+    <body>
+        <h1>Guía de HashTable API</h1>
+        <hr>
+        <h2>Índice</h2>
+        <ol>
+            <li>Introducción</li>
+            <li>Tablas</li>
+            <li>Procedimientos</li>
+            <li>API</li>
+            <li>Ejemplos</li>
+        </ol>
+        <hr>
+        <h2>1. Introducción</h2>
+        <p>HashTable es una API que permite cifrar valores y buscarlos según tres tipos de formato diferentes.
+            Dado que descifrar un valor de estos es casi imposible, también es cierto que puede tener
+            vulnerabilidades, etc. El objetivo de la API es guardar palabras cifradas en los tres formatos
+            de cifrado elementales (<i>MD5</i>, <i>SHA1</i>, <i>SHA256</i>), de tal modo que cuando un
+            usuario busque un valor a descifrar, ya estaría descifrado. De forma inversa, cuando un usuario
+            quiere cifrar un valor, la propia API aprovecha para <i>alimentarse</i>, alojando el dato
+            si no existe. Cuando se construye la base, se puede importar unas palabras iniciales, pero 
+            con el paso del tiempo la tabla va cogiendo forma.
+        </p>
+        <p>En lo que se refiere a MD5, se puede considerar que es el cifrado inicial, aunque haya otros, pero
+            este es el más conocido. Sin embargo, unos estudios demostraron que existían posibilidades de vulnerabilidad,
+            tanto de choque (posible repetición de datos diferentes) como de obtención (descifrado de la palabra).
+            Por eso, surgió SHA1 y SHA2, cuyos bits eran muchos mayores que los de MD5. Algunas alternativas
+            para la vulnerabilidad de MD5 en cuestiones de descifrado es cifrar en dos ocasiones la clave.
+            En la lista siguiente se observa la cantidad de caracteres que se compone
+            cada clave:
+        </p>
+        <ul>
+            <li><b>MD5:</b> 128 bits, 32 caracteres</li>
+            <li><b>SHA1:</b> 320 bits, 40 caracteres</li>
+            <li><b>SHA2:</b> 512 bits, 64 caracteres</li>
+        </ul>
+        <hr>
+
+        <!-- EXPLICACIÓN DE LAS TABLAS -->
+        <h2>2. Tablas</h2>
+        <p>La API cuenta con una sola tabla, de nombre <i>palabras</i>, en ella se guardarán todos los
+            valores, tanto la palabra como su valor cifrado. Cuando un usuario busque un valor, si existe
+            estará en la tabla, de lo contrario el valor será añadido.</p>
+        
+        <hr>
+        <!-- APARTADO DE EJEMPLOS -->
+        <h2>5. Ejemplos</h2>
+        <table>
+            <tr>
+                <th>Punto</th>
+                <th>Nombre</th>
+                <th>Formato</th>
+                <th>Dirección</th>
+            </tr>
+            <tr>
+                <td><a class="enlace-a-texto" href="#punto51">5.1.</a></td>
+                <td><a class="enlace-a-texto" href="#punto51">Cifrar una palabra</a></td>
+                <td>GET</td>
+                <td><a href="/api/get/cifrarValor?formatear=true&palabra=texto">/api/get/cifrarValor</a></td>
+            </tr>
+            <tr>
+                <td><a class="enlace-a-texto" href="#punto52">5.2.</a></td>
+                <td><a class="enlace-a-texto" href="#punto52">Descifrar una clave</a></td>
+                <td>GET</td>
+                <td><a href="/api/get/descifrarHash?formatear=true">/api/get/descifrarHash</a></td>
+            </tr>
+            <tr>
+                <td><a class="enlace-a-texto" href="#punto53">5.3.</a></td>
+                <td><a class="enlace-a-texto" href="#punto53">Insertar palabra</a></td>
+                <td>POST</td>
+                <td>/api/post/insertarPalabra</td>
+            </tr>
+        </table>
+        <hr>
+        <h3 id="punto51">5.1. Cifrar una palabra</h2>
+            <p>Devuelve una palabra cifrada en MD5. El formato de llamada es <i>GET</i>. Si la base no estuviera
+                activa, la palabra quedará cifrada pero no se añadirá. Los argumentos a pasar por la dirección son:</p>
+            <ul>
+                <li><i>formatear</i>: muestra el código JSON formateado (opcional)</li>
+                <li><i>palabra</i>: palabra que se quiere cifrar</li>
+            </ul>
+            <p>Dirección: <code class="codigo-direccion"><a href="/api/get/cifrarValor?formatear=true&palabra=texto">localhost/api/get/cifrarValor?formatear=true&palabra=texto</a></code></p>
+            <!--<pre class="codigoJSON"><code id="codigo51"></code></pre>-->
+            <div id="codigo51"></div>
+            <div id="formulario51"></div>
+        <hr>
+        <h3 id="punto52">5.2. Descifrar una clave</h3>
+            <p>Pasa por lo menos una clave del tipo <i>MD5</i>, <i>SHA1</i>, o <i>SHA256</i>, y el sistema
+            buscará por una de las tres claves o por las aportadas. Puedes aportar la cantidad que quieras.
+            El resultado puede existir, o de lo contrario recibirás un mensaje de no encontrado. Los argumentos que se pasan son:</p>
+            <ul>
+                <li><i>formatear</i>: muestra el código JSON formateado (opcional)</li>
+                <li><i>md5</i>: clave en MD5 (valor opcional)</li>
+                <li><i>sha1</i>: clave en SHA1 (valor opcional)</li>
+                <li><i>sha2</i>: clave en SHA2 (valor opcional)</li>
+            </ul>
+            <p><b>Nota:</b> aunque se indica que es un valor opcional, al menos debe aportarse uno de esos tres tipos de cifrado, también los tres</p>
+        <p>Dirección: <code class="codigo-direccion"><a href="/api/get/descifrarHash?formatear=true&md5=62059a74e9330e9dc2f537f712b8797c">localhost/api/get/descifrarHash?formatear=true&md5=62059a74e9330e9dc2f537f712b8797c</code></a></p>
+        <div id="codigo52"></div>
+        <hr>
+        <h3 id="punto53">5.3. Insertar valor</h3>
+        <p>Inserta una palabra en la base de datos. El resultado devuelto no es la palabra cifrada, sino un mensaje de confirmación 
+            de que la palabra se ha insertado correctamente. Por lo tanto, los argumentos se pueden suponer, solo es 1:
+        </p>
+        <ul>
+            <li><i>palabra</i>: pasa la palabra a insertar en la base de datos</li>
+        </ul>
+        <p>Respectivamente, y en orden, el mensaje de envío y la respuesta:</p>
+        <div id="codigo531"></div>
+        <div id="codigo532"></div>
+
+        <script>
+
+            //Escribe el JSON
+            new QuickJSON({selector:"#codigo51", json:{"estado":"OK","mensaje":"Palabra cifrada","palabra":"texto","cifrados":{"md5":"62059a74e9330e9dc2f537f712b8797c","sha1":"ea631551f5569f612dd702b900c596c2a99c0dfd","sha2":"f46e3b17a6b639e5efddc3d1498ad73491599c22220f7ef6e14772f4ee25b913"}}});
+            new QuickJSON({selector:"#codigo52", json:{"estado":"OK","mensaje":"Palabra encontrada","palabra":"texto","cifrados":{"md5":"62059a74e9330e9dc2f537f712b8797c","sha1":"ea631551f5569f612dd702b900c596c2a99c0dfd","sha256":"f46e3b17a6b639e5efddc3d1498ad73491599c22220f7ef6e14772f4ee25b913"}}});
+            new QuickJSON({selector:"#codigo531", json:{"palabra" : "prueba"}});
+            new QuickJSON({selector:"#codigo532", json:{"estado":"OK","mensaje": "Palabra insertada correctamente"}});
+
+            //Creación de formularios
+            new QuickFormSend({
+                selector: "#formulario51",
+                textButton: "Cifrar",
+                placeholder: "Palabra a cifrar...",
+                placeholderWait: "Un momento, por favor...",
+                onClick: function(){
+                    this.disabled(true);
+                    this.sendGET(`/api/get/cifrarValor?palabra=${this.inputBox.value}`, (datos) => {
+                        alert(`${datos.mensaje}\n\nResultados para ${datos.palabra}\n\nMD5: ${datos.cifrados.md5}\nSHA1: ${datos.cifrados.sha1}\nSHA2: ${datos.cifrados.sha2}`);
+                        this.disabled(false);
+                    });
+                }
+            });
+
+        </script>
+    </body>
+</html>
