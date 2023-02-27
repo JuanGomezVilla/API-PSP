@@ -30,19 +30,19 @@ def cifrarValor():
     if palabra is None:
         mensaje = "No se ha pasado ninguna palabra"
     else:
-        # En caso de desencadenarse un error
+        # Captura posibles errores
         try:
             # Cifra la palabra en los tres tipos de cifrado
             cifrados["md5"] = hashlib.md5(palabra.encode()).hexdigest()
             cifrados["sha1"] = hashlib.sha1(palabra.encode()).hexdigest()
             cifrados["sha2"] = hashlib.sha256(palabra.encode()).hexdigest()
 
-            # Captura una sola fila con es posible valor, utilizando LIMIT
+            # Captura una sola fila con ese posible valor, utilizando LIMIT
             filas = Utils.ejecutar_query("SELECT palabra FROM palabras WHERE palabra=%s LIMIT 1", [palabra])
 
             # Si no existen filas, el valor se puede añadir a la base de datos
             if filas is None:
-                # Ejecuta una query con la posibilidad de insertar palabras, notificando que se realiza una acción de insertar
+                # Ejecuta una query con la posibilidad de insertar palabras, notificando que se realiza una acción de commit
                 datos = Utils.ejecutar_query("CALL insertarPalabra(%s)", [palabra], True)
             
             # La palabra está cifrada
@@ -56,7 +56,7 @@ def cifrarValor():
 
 @application.route("/api/get/descifrarHash", methods=["GET"])
 def descifrarValor():
-    # Obtención del valor a descifrar y creación de una variable palabra resultado
+    # Obtención del valor a descifrar y creación de una variable palabra para el resultado
     paramCifradoMD5 = request.args.get("md5", None, str)
     paramCifradoSHA1 = request.args.get("sha1", None, str)
     paramCifradoSHA256 = request.args.get("sha256", None, str)
@@ -97,7 +97,7 @@ def index():
         # Fija el resultado el valor del cifrado
         resultado = cifradoMD5
     
-    # Le pasa el resultado a una función para crear un QR y lo imprime sin necesidad de guardarlo
+    # Le pasa el resultado a una función para crear un QR y lo imprime sin necesidad de guardarlo en el servidor
     return send_file(Utils.crear_qr(resultado, True), mimetype="image/png")
 
 
@@ -196,7 +196,9 @@ def modificar_valor_palabra():
             palabraExistir = Utils.ejecutar_query("SELECT palabra FROM palabras WHERE palabra = %s LIMIT 1", [palabra])
             palabraNuevaExistir = Utils.ejecutar_query("SELECT palabra FROM palabras WHERE palabra = %s LIMIT 1", [palabraNueva])
             
+            # Si existe una palabra a modificar y el nuevo valor no existe
             if palabraExistir and palabraNuevaExistir is None:
+                # Ejecuta un comando de actualización
                 Utils.ejecutar_query("UPDATE palabras SET palabra = %s WHERE palabra = %s", [palabraNueva, palabra], True)
                 mensaje = "Palabra modificada con éxito"
             else:

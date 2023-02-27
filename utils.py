@@ -49,7 +49,7 @@ class Utils:
         # Devuelve ERROR por defecto
         return "ERROR"
         
-    # Procesa el JSON, recibe unos datos, y comprueba si se debe formatearlos
+    # Procesa el JSON, recibe unos datos, y comprueba si debe formatearlos
     @staticmethod
     def procesar_json(datos):
         # Captura el parámetro formatear por defecto, por defecto false

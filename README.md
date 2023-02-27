@@ -49,3 +49,10 @@ flask --app application.py --debug run
 ## Establecer la terminal por defecto la de CMD
  1. CTRL + SHIFT + P y escribir "Terminal: Select Default Profile"
  2. Seleccionar la opción de Command Prompt
+
+
+## Ejecución
+Abrir CMD y ejecutar el archivo _run.bat_:
+```bash
+call run
+```
