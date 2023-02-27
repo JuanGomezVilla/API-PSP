@@ -1,3 +1,4 @@
+
 class QuickFormSend {
     constructor(data){
         this.onClick = data.onClick;
@@ -27,6 +28,14 @@ class QuickFormSend {
 
     async sendGET(url, callback){
         let content = await fetch(url);
+        callback(await content.json());
+    }
+
+    async sendDELETE(url, datos, callback) {
+        let content = await fetch(url, {
+            method: "DELETE", headers: {"Content-type": "application/json"},
+            body: JSON.stringify(datos)
+        });
         callback(await content.json());
     }
 
@@ -71,4 +80,33 @@ class QuickJSON {
             }
         );
     }
+}
+
+let barraNavegacion;
+
+window.onload = function(){
+    let botonUp = document.querySelector(".button-up");
+    botonUp.addEventListener("click", function(){
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    barraNavegacion = document.querySelector("nav");
+    let enlace = document.createElement("a");
+    enlace.innerText = "Documentación";
+    enlace.style.textAlign = "center";
+    enlace.style.width = "100%";
+    enlace.style.padding = 0;
+    enlace.className = "responsive";
+    enlace.addEventListener("click", function(){
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+    barraNavegacion.append(enlace);
+
+
+}
+
+function scrolltoId(selector){
+    var access = document.getElementById(selector);
+    let y = access.getBoundingClientRect().top + window.pageYOffset - 100;
+    window.scrollTo({top: y, behavior: 'smooth'});
 }

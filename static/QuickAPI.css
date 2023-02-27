@@ -1,48 +1,153 @@
+:root {
+    --main-color: #008f37;
+    --main-color-hover: #016a29;
+    --secondary-color: #FFFFFF;
+    --main-font: "Segoe UI";
+    --secondary-font: "Arial";
+}
+
+/* Cuerpo de la página */
 body {
-    font: 16px "Segoe UI";
-    margin: 30px;
-    width: 70%;
-    margin: 0 auto;
+    font: 16px var(--main-font); /* Tamaño y fuente de letra */
+    width: 70%; /* Ancho de la página */
+    margin: 0 auto; /* Eliminación del margen */
+    margin-top: 100px; /* Margen superior para la barra de navegación */
+    margin-bottom: 75px; /* Margen inferior */
 }
 
+/* Fuentes de letra */
+h1, h2, h3, h4, h5, h6, p, a {
+    font-family: var(--main-font);
+}
+
+/* Configuraciones del texto */
 p {
-    text-align: justify;
+    font-size: 16px; /* Tamaño de la fuente */
+    text-align: justify; /* Texto justificado por defecto */
 }
 
+/* Configuración del cualquier título principal*/
 h1 {
-    text-align: center;
+    text-align: center; /* Texto centrado */
+    user-select: none; /* Evita que el usuario pueda seleccionar el texto */
 }
 
+/* Configuraciones de una barra */
 hr {
-    margin: 30px 0 30px 0;
-    border: 0;
-    border-top: 1px solid rgba(0,0,0,.1);
+    margin: 40px 0px; /* Margen inferior y superior */
+    border: none;
+    border-top: 1px solid rgba(0,0,0,.5); /* Elimina el borde general */
 }
 
+/* Configuraciones de un enlace */
+a {
+    text-decoration: none; /* Elimina el subrayado */
+}
+
+/* Configuración de la barra de navegación */
+nav {
+    background-color: var(--main-color); /* Color por defecto */
+    position: fixed; /* Ubicación de la barra */
+    top: 0; /* Ubicación superior */
+    left: 0; /* Desplazamiento desde la izquierda */
+    width: 100%; /* Ancho completo */
+    padding: 24px; /* Margen interior */
+    box-shadow: 0px 4px 8px #000000; /* Sombra */
+    overflow: hidden; /* Oculta posibles overflow*/
+}
+
+/* Configuraciones de un enlace dentro de la barra de navegación */
+nav a {
+    color: var(--secondary-color); /* Color del texto, secundario */
+    padding: 0px 10px; /* Separación lateral de cada enlace */
+    float: left; /* Cada elemento está ubicado en línea con el anterior */
+    display: block; /* Disposición en bloque*/
+    text-align: center; /* Alineación centrada del texto */
+    user-select: none; /* Evita que el usuario pueda seleccionar el texto */
+    font-size: 17px; /* Tamaño de la fuente */
+}
+
+/* Configuración de un botón */
+button {
+    font-family: var(--secondary-font); /* Fuente de letra */
+    font-size: 16px; /* Tamaño de la fuente */
+    font-weight: 100; /* Peso de la fuente */
+    color: var(--secondary-color); /* Color de la fuente del botón */
+    background-color: var(--main-color); /* Color de fondo */
+    padding: 8px 15px; /* Margen interior */
+    border: none; /* Elimina el borde */
+    border-radius: 4px; /* Aplica un borde redondeado */
+    outline: none; /* Evita una línea de tabulación */
+    cursor: pointer; /* Icono del ratón */
+    transition: .3s; /* Duración de la transición */
+}
+
+/* Configuraciones de la caja */
+input {
+    font: 16px var(--secondary-font); /* Fuente del texto y tamaño */
+    background-color: transparent; /* Fondo transparente */
+    border: none; /* Elimina el borde */
+    outline: none; /* Elimina una línea de tabulación */
+    padding: 5px 0px; /* Margen interior */
+    border-bottom: 2px solid #000000; /* Color del borde inferior */
+    transition: .2s; /* Duración de la animación */
+}
+
+
+/* Acción al seleccionar la caja */
+input:focus {
+    border-bottom-color: var(--main-color); /* Color del borde inferior */
+}
+
+/* Color de fondo cuando se realiza hover y botón está habilitado */
+button:hover:enabled {
+    background-color: var(--main-color-hover); /* Color principal */
+}
+
+/* Configuraciones para cuando el botón está desabilitado */
+button:disabled, input:disabled {
+    border-color: #595959; /* Color del borde */
+    cursor: default; /* Cursor por defecto */
+}
+
+/* Configuraciones para cuando el input está deshabilitado */
+input:disabled {
+    color: #595959; /* Color del texto */
+}
+
+/* Configuraciones para cuando el botón está deshabilitado */
+button:disabled {
+    background-color: #595959; /* Color del fondo */
+    color: #b5b5b5; /* Color del texto */
+}
+
+/* Configuración de una tabla */
 table, tr, td, th {
-    border-collapse: collapse;
-    border: 1px solid #000000;
+    border-collapse: collapse; /* El doble borde se retira*/
+    border: 1px solid #000000; /* Color del borde */
 }
 
+/* Configuración de una celda */
 td, th {
-    padding: 5px 10px 5px 10px;
-    text-align: start;
+    padding: 5px 10px; /* Margen interior */
+    text-align: start; /* Alineación del texto al inicio */
 }
 
+/* Configuración de los enlaces dentro de listas y tablas */
+table a, ul a, ol a {
+    color: initial; /* Color por defecto */
+}
+
+.codigo-direccion a {
+    color:#000000;
+}
 
 .codigo-direccion {
     background-color: #d9d9d9;
+    
     padding: 6px;
     border-radius: 5px;
     font-size: 13px;
-}
-
-a {
-    text-decoration: none;
-}
-
-table a, ul a, ol a {
-    color: initial;
 }
 
 .codigoJSON {
@@ -56,45 +161,134 @@ table a, ul a, ol a {
     margin-right: auto;
 }
 
-input, button {
-    background-color: transparent;
-    color: #FFF;
-    border: 2px solid white;
-    padding: 10px;
-    outline: none;
-    font: 16px "Segoe UI";
-    border-radius: 4px;
+
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }
 
-button {
-    cursor: pointer;
+/* Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
 }
 
-button:hover:enabled {
-    background-color: white;
-    color: black;
+.responsive {
+    display: none;
 }
 
-button:disabled, input:disabled {
-    border-color: #595959;
-    color: #595959;
-    cursor: default;
+.button-up {
+    font: 18px "Segoe UI";
+    border-radius: 100%;
+    width: 50px;
+    height: 50px;
+    transition: .3s ease;
+    position: fixed;
+    bottom: 5%;
+    right: 5%;
+}
+
+
+@media only screen and (max-width: 600px) {
+    body {
+        width: 80%;
+    }
+
+    input {
+        margin-bottom: 20px;
+    }
+
+    .responsive {
+        display: block;
+    }
+
+    p {
+        text-align: initial;
+    }
+
+    nav a {
+        display: none;
+    }
+
+    nav {
+        padding-left: 0;
+    }
+
+    nav.responsive {
+        height: 100%;
+    }
+    
+    nav.responsive a {
+        display: block;
+    }
+
+    .codigoJSON, .codigo-direccion, .json-key, .json-string {
+        white-space: initial;
+        word-wrap: break-word;
+    }
+    
 }
 
 @media (prefers-color-scheme: light) {
-    body {background-color:#FFFFFF;color:#2d2d2d;}
-    th {background-color:#c8c8c8;}
-    hr {border-top: 1px solid rgba(0,0,0,.1);}
+    /*REGLAS FINALIZADAS*/
+    body {background-color:#FFFFFF;color: #2d2d2d;}
+    a {color:#0d6efd;}
+    
+    th {background-color:#242424;}
+    .codigo-direccion {color:#FFFFFF;background-color: #404245;}
+
+    nav {
+        box-shadow: 0px 4px 3px #000000; /* Sombra */
+    }
+    
+    
 }
 
 @media (prefers-color-scheme: dark) {
+    /*REGLAS FINALIZADAS*/
     body {background-color:#2d2d2d;color:#FFFFFF;}
+    a {color:#81ccff;}
+    hr {border-top: 1px solid rgba(255, 255, 255, .75) !important;}
+
+
     table, tr, td, th {border: 1px solid #FFFFFF;}
     th {background-color: #6e6e6e;color:#FFFFFF;}
-    hr {border-top: 1px solid rgba(255, 255, 255, .5);}
+    
+    
+
+    input {
+        border-bottom-color: white;
+        color: white;
+    }
     .codigoJSON {background-color:#1d1b1b;border:none;}
     .json-key, .json-string {color:#b5bd68 !important;}
     .codigo-direccion {color:#FFFFFF;background-color: #404245;}
-    table a {color:#FFFFFF !important;}
-    pre a, code a {color: #FFFFFF !important;}
+
+    /*Los enlaces dentro de tablas, código y elementos de listas es de color blanco*/
+    pre a, code a, table a, li a {
+        color: #FFFFFF !important;
+    }
+
+    /* Botón hacia arriba */
+    
+
+    body::-webkit-scrollbar {
+        width: 12px;
+      }
+      
+    body::-webkit-scrollbar-track {
+        background: #303030;
+    }
+      
+    body::-webkit-scrollbar-thumb {
+        background-color: #202020;    /* color of the scroll thumb */
+        border-radius: 20px;       /* roundness of the scroll thumb */
+        /* border: 3px solid rgb(18, 18, 18); */
+    }
+
+    .button-up {
+        box-shadow: 0px 1px 7px #000000;
+    }
 }

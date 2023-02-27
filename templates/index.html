@@ -1,24 +1,54 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <!-- TÍTULO DE LA PESTAÑA -->
         <title>HashMD5 - Home</title>
+
+        <!-- CONFIGURACIONES DE LA VENTANA -->
         <meta charset="UTF-8">
+        <meta name="google" content="notranslate">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!-- IMPORTACIÓN DE LA LIBRERÍA -->
         <link rel="stylesheet" type= "text/css" href="{{ url_for('static',filename='QuickAPI.css') }}">
         <script src="{{ url_for('static',filename='QuickAPI.js') }}"></script>
     </head>
     <body>
+        <!-- Barra de navegación con el índice -->
+        <nav>
+            <a href="javascript:scrolltoId('punto1')">Introducción</a>
+            <a href="javascript:scrolltoId('punto2')">Tablas</a>
+            <a href="javascript:scrolltoId('punto3')">Procedimientos</a>
+            <a href="javascript:scrolltoId('punto4')">API</a>
+        </nav>
+
+        <!-- Botón para subir arriba -->
+        <button class="button-up">UP</button>
+
+        <!-- Título (no seleccionable) -->
         <h1>Guía de HashTable API</h1>
         <hr>
+
+        <!-- Índice de contenidos -->
         <h2>Índice</h2>
         <ol>
-            <li>Introducción</li>
-            <li>Tablas</li>
-            <li>Procedimientos</li>
-            <li>API</li>
-            <li>Ejemplos</li>
+            <li><a href="javascript:scrolltoId('punto1')">Introducción</a></li>
+            <li><a href="javascript:scrolltoId('punto2')">Tablas</a></li>
+            <li><a href="javascript:scrolltoId('punto3')">Procedimientos</a></li>
+            <li>
+                <a href="javascript:scrolltoId('punto4')">API</a>
+                <ol>
+                    <li><a href="javascript:scrolltoId('punto41')">Cifrar una palabra</a></li>
+                    <li><a href="javascript:scrolltoId('punto42')">Descifrar una clave</a></li>
+                    <li><a href="javascript:scrolltoId('punto43')">Crear QR de una palabra a MD5</a></li>
+                    <li><a href="javascript:scrolltoId('punto44')">Insertar valor</a></li>
+                    <li><a href="javascript:scrolltoId('punto45')">Modificar palabra</a></li>
+                    <li><a href="javascript:scrolltoId('punto46')">Eliminar palabra</a></li>
+                </ol>
+            </li>
         </ol>
         <hr>
-        <h2>1. Introducción</h2>
+        <h2 id="punto1">1. Introducción</h2>
         <p>HashTable es una API que permite cifrar valores y buscarlos según tres tipos de formato diferentes.
             Dado que descifrar un valor de estos es casi imposible, también es cierto que puede tener
             vulnerabilidades, etc. El objetivo de la API es guardar palabras cifradas en los tres formatos
@@ -37,22 +67,38 @@
             cada clave:
         </p>
         <ul>
-            <li><b>MD5:</b> 128 bits, 32 caracteres</li>
-            <li><b>SHA1:</b> 320 bits, 40 caracteres</li>
-            <li><b>SHA2:</b> 512 bits, 64 caracteres</li>
+            <li><b>MD5:</b> 32 caracteres</li>
+            <li><b>SHA1:</b> 40 caracteres</li>
+            <li><b>SHA2:</b> para el formato 256, 64 caracteres</li>
         </ul>
+        <p>En definitiva, esto es un resumen acerca de los tipos de cifrado. Detrás de todo esto existe
+            una gran historia y controversia sobre cuál es el tipo de cifrado más seguro. Puedes encontrar
+            más información en el siguiente <a href="https://es.wikipedia.org/wiki/MD5">enlace</a>.
+        </p>
         <hr>
 
         <!-- EXPLICACIÓN DE LAS TABLAS -->
-        <h2>2. Tablas</h2>
+        <h2 id="punto2">2. Tablas</h2>
         <p>La API cuenta con una sola tabla, de nombre <i>palabras</i>, en ella se guardarán todos los
             valores, tanto la palabra como su valor cifrado. Cuando un usuario busque un valor, si existe
             estará en la tabla, de lo contrario el valor será añadido.</p>
-        
         <hr>
+
+        <!-- EXPLICACIÓN DE PROCEDIMIENTOS -->
+        <h2 id="punto3">3. Procedimientos</h2>
+        <p>En la base de datos se ha creado un total de dos procedimientos, para agilizar la tarea
+            y realizar parte de los procesos de forma separada, por un lado se encarga la API
+            y por otro la propia base. Los procedimientos creados son:
+        </p>
+        <ul>
+            <li><i>descifrarHash</i>: recibe tres parámetros en total (cada hash), mínimo 1, máximo 3. Sirve para descifrar un hash</li>
+            <li><i>insertarPalabra</i>: recibe un solo parámetro, la palabra a crear (máximo 50 caracteres). Sirve para añadir una palabra</li>
+        </ul>
+        <hr>
+
         <!-- APARTADO DE EJEMPLOS -->
-        <h2>5. Ejemplos</h2>
-        <table>
+        <h2 id="punto4">4. API</h2>
+        <table style="overflow-x:auto;">
             <tr>
                 <th>Punto</th>
                 <th>Nombre</th>
@@ -60,38 +106,56 @@
                 <th>Dirección</th>
             </tr>
             <tr>
-                <td><a class="enlace-a-texto" href="#punto51">5.1.</a></td>
-                <td><a class="enlace-a-texto" href="#punto51">Cifrar una palabra</a></td>
+                <td><a class="enlace-a-texto" href="javascript:scrolltoId('punto41')">4.1.</a></td>
+                <td><a class="enlace-a-texto" href="javascript:scrolltoId('punto41')">Cifrar una palabra</a></td>
                 <td>GET</td>
                 <td><a href="/api/get/cifrarValor?formatear=true&palabra=texto">/api/get/cifrarValor</a></td>
             </tr>
             <tr>
-                <td><a class="enlace-a-texto" href="#punto52">5.2.</a></td>
-                <td><a class="enlace-a-texto" href="#punto52">Descifrar una clave</a></td>
+                <td><a class="enlace-a-texto" href="javascript:scrolltoId('punto42')">4.2.</a></td>
+                <td><a class="enlace-a-texto" href="javascript:scrolltoId('punto42')">Descifrar una clave</a></td>
                 <td>GET</td>
                 <td><a href="/api/get/descifrarHash?formatear=true">/api/get/descifrarHash</a></td>
             </tr>
             <tr>
-                <td><a class="enlace-a-texto" href="#punto53">5.3.</a></td>
-                <td><a class="enlace-a-texto" href="#punto53">Insertar palabra</a></td>
-                <td>POST</td>
-                <td>/api/post/insertarPalabra</td>
+                <td><a class="enlace-a-texto" href="javascript:scrolltoId('punto43')">4.3.</a></td>
+                <td><a class="enlace-a-texto" href="javascript:scrolltoId('punto43')">Crear QR de una palabra a MD5</a></td>
+                <td>GET</td>
+                <td><a href="/api/get/crearQR?palabra=texto">/api/get/crearQR</a></td>
             </tr>
+            <tr>
+                <td><a class="enlace-a-texto" href="javascript:scrolltoId('punto44')">4.4.</a></td>
+                <td><a class="enlace-a-texto" href="javascript:scrolltoId('punto44')">Insertar valor</a></td>
+                <td>POST</td>
+                <td>/api/post/insertarPalabra</a></td>
+            </tr>
+            <tr>
+                <td><a class="enlace-a-texto" href="javascript:scrolltoId('punto45')">4.5.</a></td>
+                <td><a class="enlace-a-texto" href="javascript:scrolltoId('punto45')">Modificar palabra</a></td>
+                <td>PUT</td>
+                <td>/api/put/modificarPalabra</td>
+            </tr>
+            <tr>
+                <td><a class="enlace-a-texto" href="javascript:scrolltoId('punto46')">4.6.</a></td>
+                <td><a class="enlace-a-texto" href="javascript:scrolltoId('punto46')">Eliminar palabra</a></td>
+                <td>DELETE</td>
+                <td>/api/delete/eliminarPalabra</td>
+            </tr>
+            
         </table>
         <hr>
-        <h3 id="punto51">5.1. Cifrar una palabra</h2>
+        <h3 id="punto41">4.1. Cifrar una palabra</h2>
             <p>Devuelve una palabra cifrada en MD5. El formato de llamada es <i>GET</i>. Si la base no estuviera
-                activa, la palabra quedará cifrada pero no se añadirá. Los argumentos a pasar por la dirección son:</p>
+                activa, la palabra quedará cifrada pero no se añadirá a la tabla. Los argumentos a pasar por la dirección son:</p>
             <ul>
                 <li><i>formatear</i>: muestra el código JSON formateado (opcional)</li>
                 <li><i>palabra</i>: palabra que se quiere cifrar</li>
             </ul>
             <p>Dirección: <code class="codigo-direccion"><a href="/api/get/cifrarValor?formatear=true&palabra=texto">localhost/api/get/cifrarValor?formatear=true&palabra=texto</a></code></p>
-            <!--<pre class="codigoJSON"><code id="codigo51"></code></pre>-->
-            <div id="codigo51"></div>
-            <div id="formulario51"></div>
+            <div id="codigo41"></div>
+            <div id="formulario41"></div>
         <hr>
-        <h3 id="punto52">5.2. Descifrar una clave</h3>
+        <h3 id="punto42">4.2. Descifrar una clave</h3>
             <p>Pasa por lo menos una clave del tipo <i>MD5</i>, <i>SHA1</i>, o <i>SHA256</i>, y el sistema
             buscará por una de las tres claves o por las aportadas. Puedes aportar la cantidad que quieras.
             El resultado puede existir, o de lo contrario recibirás un mensaje de no encontrado. Los argumentos que se pasan son:</p>
@@ -99,34 +163,106 @@
                 <li><i>formatear</i>: muestra el código JSON formateado (opcional)</li>
                 <li><i>md5</i>: clave en MD5 (valor opcional)</li>
                 <li><i>sha1</i>: clave en SHA1 (valor opcional)</li>
-                <li><i>sha2</i>: clave en SHA2 (valor opcional)</li>
+                <li><i>sha2</i>: clave en SHA256 (valor opcional)</li>
             </ul>
-            <p><b>Nota:</b> aunque se indica que es un valor opcional, al menos debe aportarse uno de esos tres tipos de cifrado, también los tres</p>
+            <p><b>Nota:</b> aunque se indica que es un valor opcional, al menos debe aportarse uno de esos tres tipos de cifrado, también los tres es posible.</p>
         <p>Dirección: <code class="codigo-direccion"><a href="/api/get/descifrarHash?formatear=true&md5=62059a74e9330e9dc2f537f712b8797c">localhost/api/get/descifrarHash?formatear=true&md5=62059a74e9330e9dc2f537f712b8797c</code></a></p>
-        <div id="codigo52"></div>
+        <div id="codigo42"></div>
+        <div id="formulario42"></div>
         <hr>
-        <h3 id="punto53">5.3. Insertar valor</h3>
+        <h3 id="punto43">4.3. Crear QR de una palabra a MD5</h3>
+        <p>La API recibirá una palabra, y está será convertida a MD5, posteriormente el resultado será devuelto en una imagen, que será
+            un código QR. Los parámetros a pasar son:</p>
+        <p>Dirección: <code class="codigo-direccion"><a href="/api/get/crearQR?palabra=texto">localhost/api/get/crearQR?md5=texto</code></a></p>
+        <ul>
+            <li><i>palabra</i>: palabra a convertir a MD5 y posteriormente a QR</li>
+        </ul>
+        <div id="formulario43"></div><br>
+        <img id="imagenQR" src="/api/get/crearQR?palabra=texto" width="200">
+
+        <hr>
+        <h3 id="punto44">4.4. Insertar valor</h3>
         <p>Inserta una palabra en la base de datos. El resultado devuelto no es la palabra cifrada, sino un mensaje de confirmación 
-            de que la palabra se ha insertado correctamente. Por lo tanto, los argumentos se pueden suponer, solo es 1:
-        </p>
+            de que la palabra se ha insertado correctamente. Por lo tanto, los argumentos se pueden suponer, solo es 1:</p>
         <ul>
             <li><i>palabra</i>: pasa la palabra a insertar en la base de datos</li>
         </ul>
         <p>Respectivamente, y en orden, el mensaje de envío y la respuesta:</p>
-        <div id="codigo531"></div>
-        <div id="codigo532"></div>
+        <div id="codigo441"></div>
+        <div id="codigo442"></div>
+        <div id="formulario44"></div><br>
+        
+        <hr>
+        <h3 id="punto45">4.5. Modificar palabra</h3>
+        <p>La API recibirá en JSON dos palabras, la palabra a modificar y la nueva, es decir el valor actualizado.
+            En caso de ya existir el nuevo valor, la acción no se llevará a cabo. Los parámetros a pasar son:
+        </p>
+        <ul>
+            <li><i>palabra</i>: valor antiguo</li>
+            <li><i>palabraNueva</i>: valor nuevo</li>
+        </ul>
+        <div>
+            <input id="cajaValorAntiguo" placeholder="Valor antiguo...">&nbsp;
+            <input id="cajaValorNuevo" placeholder="Valor nuevo...">
+            <button onclick="modificar()">Modificar</button>
+            <script>
+                
+                var cajaValorAntiguo = document.querySelector("#cajaValorAntiguo");
+                var cajaValorNuevo = document.querySelector("#cajaValorNuevo");
+
+                async function enviarPUT(url, datos, callback) {
+                    const response = await fetch(url, {
+                        method: "PUT", headers: {"Content-type": "application/json"},
+                        body: JSON.stringify(datos)
+                    });
+                    callback(await response.json());
+                }
+
+                function modificar(){
+                    cajaValorAntiguo.disabled = true;
+                    cajaValorNuevo.disabled = true;
+                    enviarPUT(
+                        "/api/put/modificarPalabra",
+                        {palabra:cajaValorAntiguo.value, palabraNueva:cajaValorNuevo.value},
+                        function(respuesta){
+                            alert(respuesta.mensaje);
+                            cajaValorAntiguo.disabled = false;
+                            cajaValorNuevo.disabled = false;
+
+                        });
+                }
+
+            </script>
+        </div>
+        <div id="codigo451"></div>
+        <div id="codigo452"></div>
+
+        <hr>
+        <h3 id="punto46">4.6. Eliminar palabra</h3>
+        <p>Elimina una palabra pasada en un cuerpo JSON.</p>
+        <ul>
+            <li><i>palabra</i>: pasa la palabra a eliminar en la base de datos</li>
+        </ul>
+        <p>Respectivamente, y en orden, el mensaje de envío y la respuesta:</p>
+        <div id="codigo461"></div>
+        <div id="codigo462"></div>
+        <div id="formulario46"></div>
 
         <script>
 
             //Escribe el JSON
-            new QuickJSON({selector:"#codigo51", json:{"estado":"OK","mensaje":"Palabra cifrada","palabra":"texto","cifrados":{"md5":"62059a74e9330e9dc2f537f712b8797c","sha1":"ea631551f5569f612dd702b900c596c2a99c0dfd","sha2":"f46e3b17a6b639e5efddc3d1498ad73491599c22220f7ef6e14772f4ee25b913"}}});
-            new QuickJSON({selector:"#codigo52", json:{"estado":"OK","mensaje":"Palabra encontrada","palabra":"texto","cifrados":{"md5":"62059a74e9330e9dc2f537f712b8797c","sha1":"ea631551f5569f612dd702b900c596c2a99c0dfd","sha256":"f46e3b17a6b639e5efddc3d1498ad73491599c22220f7ef6e14772f4ee25b913"}}});
-            new QuickJSON({selector:"#codigo531", json:{"palabra" : "prueba"}});
-            new QuickJSON({selector:"#codigo532", json:{"estado":"OK","mensaje": "Palabra insertada correctamente"}});
+            new QuickJSON({selector:"#codigo41", json:{"estado":"OK","mensaje":"Palabra cifrada","palabra":"texto","cifrados":{"md5":"62059a74e9330e9dc2f537f712b8797c","sha1":"ea631551f5569f612dd702b900c596c2a99c0dfd","sha2":"f46e3b17a6b639e5efddc3d1498ad73491599c22220f7ef6e14772f4ee25b913"}}});
+            new QuickJSON({selector:"#codigo42", json:{"estado":"OK","mensaje":"Palabra encontrada","palabra":"texto","cifrados":{"md5":"62059a74e9330e9dc2f537f712b8797c","sha1":"ea631551f5569f612dd702b900c596c2a99c0dfd","sha256":"f46e3b17a6b639e5efddc3d1498ad73491599c22220f7ef6e14772f4ee25b913"}}});
+            new QuickJSON({selector:"#codigo441", json:{"palabra" : "prueba"}});
+            new QuickJSON({selector:"#codigo442", json:{"estado":"OK","mensaje": "Palabra insertada correctamente"}});
+            new QuickJSON({selector:"#codigo451", json:{"palabra" : "prueba", "palabraNueva": "texto"}});
+            new QuickJSON({selector:"#codigo452", json:{"estado":"OK","mensaje": "Palabra modificada correctamente"}});
+            new QuickJSON({selector:"#codigo461", json:{"palabra" : "prueba"}});
+            new QuickJSON({selector:"#codigo462", json:{"estado":"OK","mensaje": "Palabra eliminada correctamente"}});
 
             //Creación de formularios
             new QuickFormSend({
-                selector: "#formulario51",
+                selector: "#formulario41",
                 textButton: "Cifrar",
                 placeholder: "Palabra a cifrar...",
                 placeholderWait: "Un momento, por favor...",
@@ -136,6 +272,68 @@
                         alert(`${datos.mensaje}\n\nResultados para ${datos.palabra}\n\nMD5: ${datos.cifrados.md5}\nSHA1: ${datos.cifrados.sha1}\nSHA2: ${datos.cifrados.sha2}`);
                         this.disabled(false);
                     });
+                }
+            });
+
+            new QuickFormSend({
+                selector: "#formulario42",
+                textButton: "Descifrar",
+                placeholder: "Clave MD5 a descifrar...",
+                placeholderWait: "Un momento, por favor...",
+                onClick: function(){
+                    this.disabled(true);
+                    this.sendGET(`/api/get/descifrarHash?md5=${this.inputBox.value}`, (datos) => {
+                        if(datos.palabra == null) alert("La clave no se ha encontrado")
+                        else alert(`${datos.mensaje}\n\nLa palabra es ${datos.palabra}`);
+                        
+                        this.disabled(false);
+                    });
+                }
+            });
+
+            new QuickFormSend({
+                selector: "#formulario44",
+                textButton: "Insertar",
+                placeholder: "Palabra a insertar...",
+                placeholderWait: "Un momento, por favor...",
+                onClick: function(){
+                    this.disabled(true);
+                    let palabraCapturada = this.inputBox.value;
+                    this.sendPOST(`/api/post/insertarPalabra`, {palabra:palabraCapturada}, (datos) => {
+                        alert("Resultado para "+ palabraCapturada +": "+ datos.mensaje);    
+                        this.inputBox.value = "";                    
+                        this.disabled(false);
+                    });
+                }
+            });
+
+            new QuickFormSend({
+                selector: "#formulario46",
+                textButton: "Eliminar",
+                placeholder: "Palabra a eliminar...",
+                placeholderWait: "Un momento, por favor...",
+                onClick: function(){
+                    this.disabled(true);
+                    let palabraCapturada = this.inputBox.value;
+                    this.sendDELETE(`/api/delete/eliminarPalabra`, {palabra:palabraCapturada}, (datos) => {
+                        alert(datos.mensaje);    
+                        this.inputBox.value = "";                    
+                        this.disabled(false);
+                    });
+                }
+            });
+
+            let imagenQR = document.querySelector("#imagenQR");
+            new QuickFormSend({
+                selector: "#formulario43",
+                textButton: "Generar QR",
+                placeholder: "Palabra a generar MD5...",
+                placeholderWait: "Un momento, por favor...",
+                onClick: function(){
+                    this.disabled(true);
+                    imagenQR.src = `/api/get/crearQR?palabra=${this.inputBox.value}`;
+                    this.disabled(false);
+                    this.inputBox.value = "";
                 }
             });
 
