@@ -211,3 +211,6 @@ def modificar_valor_palabra():
 
     # Devuelve un resultado final
     return Utils.devolver_JSON({"estado": estado, "mensaje" : mensaje})
+
+if __name__ == '__main__':
+    application.run(host='0.0.0.0', port=6000)
